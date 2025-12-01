@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://devp2dcv6ex0t"]
+
+[ext_resource type="PackedScene" uid="uid://dxaq80evuf3gd" path="res://skeleton/skeleton.tscn" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://b76wxgae0mne5" path="res://environment/wall.png" id="2_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://bw2nmylao4x76" path="res://environment/grass.png" id="3_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://ciba8orbr8d8a" path="res://environment/fence.tscn" id="4_aqk2v"]
+
+[node name="World" type="Node2D"]
+
+[node name="Skeleton" parent="." instance=ExtResource("1_f3sb7")]
+position = Vector2(192, 128)
+
+[node name="Sky" type="ColorRect" parent="."]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 1344.0
+offset_bottom = 192.0
+color = Color(0.7529412, 0.7529412, 0.7529412, 1)
+metadata/_edit_lock_ = true
+
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(-64, 128)
+scale = Vector2(44, 2)
+texture = ExtResource("2_tlwt5")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Grass" type="TextureRect" parent="."]
+offset_left = -64.0
+offset_top = 96.0
+offset_right = 1344.0
+offset_bottom = 136.0
+texture = ExtResource("3_aqk2v")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Fence" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(128, 128)
+
+[node name="Fence2" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(1152, 128)
