@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var can_combo: = false
+
 @onready var anchor: Node2D = $Anchor
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback")
@@ -25,4 +27,12 @@ func _physics_process(delta: float) -> void:
 			velocity.x = last_input_x * 175
 			move_and_slide()
 		"SwipeState":
+			if Input.is_action_just_pressed("attack") and can_combo:
+				playback.travel("SlashState")
+			pass
+		"SlashState":
+			if Input.is_action_just_pressed("attack") and can_combo:
+				playback.travel("StabState")
+			pass
+		"StabState":
 			pass

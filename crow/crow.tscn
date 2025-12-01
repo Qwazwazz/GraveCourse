@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://sgq86lt4wmyg"]
+
+[ext_resource type="Script" uid="uid://bpqxul2krvypo" path="res://crow/crow.gd" id="1_nbawx"]
+[ext_resource type="Texture2D" uid="uid://do4dhmnwtb8md" path="res://crow/crow.png" id="1_rowo5"]
+
+[sub_resource type="Animation" id="Animation_nbawx"]
+resource_name = "fly"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_chsdj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_070wk"]
+_data = {
+&"RESET": SubResource("Animation_chsdj"),
+&"fly": SubResource("Animation_nbawx")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c1jrl"]
+animation = &"fly"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_63j38"]
+animation = &"fly"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rsni3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xhjwl"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tm1ce"]
+states/ChaseState/node = SubResource("AnimationNodeAnimation_c1jrl")
+states/ChaseState/position = Vector2(384, 98)
+states/FlyAwayState/node = SubResource("AnimationNodeAnimation_63j38")
+states/FlyAwayState/position = Vector2(558, 98)
+transitions = ["Start", "ChaseState", SubResource("AnimationNodeStateMachineTransition_rsni3"), "ChaseState", "FlyAwayState", SubResource("AnimationNodeStateMachineTransition_xhjwl")]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kdu1p"]
+graph_offset = Vector2(-292, 120)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_tm1ce")
+nodes/StateMachine/position = Vector2(40, 140)
+node_connections = [&"output", 0, &"StateMachine"]
+
+[node name="Crow" type="Node2D"]
+script = ExtResource("1_nbawx")
+
+[node name="Anchor" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Anchor"]
+position = Vector2(0, -24)
+texture = ExtResource("1_rowo5")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_070wk")
+}
+autoplay = "fly"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_kdu1p")
+anim_player = NodePath("../AnimationPlayer")
