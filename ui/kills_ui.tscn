@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi1ddsgirna8b"]
+
+[ext_resource type="LabelSettings" uid="uid://csxlf2hot5oiy" path="res://ui/default_label_settings.tres" id="1_6lyv1"]
+[ext_resource type="Script" uid="uid://xfvjv4aujh4k" path="res://ui/kills_ui.gd" id="1_mkjc8"]
+
+[node name="KillsUI" type="HBoxContainer"]
+offset_right = 56.0
+offset_bottom = 16.0
+script = ExtResource("1_mkjc8")
+
+[node name="KillsLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Kills:"
+label_settings = ExtResource("1_6lyv1")
+
+[node name="KillsValue" type="Label" parent="."]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("1_6lyv1")

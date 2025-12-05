@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://drh1loqygqlaw"]
+
+[ext_resource type="Script" uid="uid://qaxyjp37vl4e" path="res://environment/spawn_point.gd" id="1_vt77p"]
+
+[node name="SpawnPoint" type="Marker2D" groups=["active_spawn_points"]]
+script = ExtResource("1_vt77p")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

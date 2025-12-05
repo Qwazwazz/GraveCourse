@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://biytckjxsbfst"]
+
+[ext_resource type="Script" uid="uid://d3nfugh7idhv0" path="res://gpu_burst_particles_2d.gd" id="1_2mie3"]
+[ext_resource type="Texture2D" uid="uid://co3ef2mp6xmrn" path="res://effects/feather.png" id="1_h02c5"]
+
+[sub_resource type="Gradient" id="Gradient_h02c5"]
+offsets = PackedFloat32Array(0.2874618, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qnj37"]
+gradient = SubResource("Gradient_h02c5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qnj37"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = 1.0728835e-05
+angle_max = 180.00002
+direction = Vector3(1, -1, 0)
+spread = 90.0
+initial_velocity_min = 75.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 98, 0)
+color_ramp = SubResource("GradientTexture1D_qnj37")
+turbulence_enabled = true
+
+[node name="FeatherBurstEffect" type="GPUParticles2D"]
+amount = 16
+texture = ExtResource("1_h02c5")
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qnj37")
+script = ExtResource("1_2mie3")
+metadata/_custom_type_script = "uid://d3nfugh7idhv0"

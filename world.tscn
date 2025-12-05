@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://devp2dcv6ex0t"]
+[gd_scene load_steps=8 format=3 uid="uid://devp2dcv6ex0t"]
 
+[ext_resource type="PackedScene" uid="uid://cdjvfj0cbt5x7" path="res://environment/spawner.tscn" id="1_dwbse"]
 [ext_resource type="PackedScene" uid="uid://dxaq80evuf3gd" path="res://skeleton/skeleton.tscn" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://b76wxgae0mne5" path="res://environment/wall.png" id="2_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://bw2nmylao4x76" path="res://environment/grass.png" id="3_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://ciba8orbr8d8a" path="res://environment/fence.tscn" id="4_aqk2v"]
-[ext_resource type="PackedScene" uid="uid://sgq86lt4wmyg" path="res://crow/crow.tscn" id="5_036b0"]
+[ext_resource type="PackedScene" uid="uid://drh1loqygqlaw" path="res://environment/spawn_point.tscn" id="6_dwbse"]
+[ext_resource type="PackedScene" uid="uid://bi1ddsgirna8b" path="res://ui/kills_ui.tscn" id="7_pkg7o"]
 
 [node name="World" type="Node2D"]
+
+[node name="Spawner" parent="." instance=ExtResource("1_dwbse")]
 
 [node name="Skeleton" parent="." instance=ExtResource("1_f3sb7")]
 position = Vector2(192, 128)
@@ -43,5 +47,37 @@ metadata/_edit_lock_ = true
 position = Vector2(1152, 128)
 metadata/_edit_lock_ = true
 
-[node name="Crow" parent="." instance=ExtResource("5_036b0")]
-position = Vector2(49, 127)
+[node name="SpawnPoints" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="SpawnPoint" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(192, 128)
+
+[node name="SpawnPoint2" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(320, 128)
+
+[node name="SpawnPoint3" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(448, 128)
+
+[node name="SpawnPoint4" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(576, 128)
+
+[node name="SpawnPoint5" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(704, 128)
+
+[node name="SpawnPoint6" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(832, 128)
+
+[node name="SpawnPoint7" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(960, 128)
+
+[node name="SpawnPoint8" parent="SpawnPoints" instance=ExtResource("6_dwbse")]
+position = Vector2(1088, 128)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="KillsUI" parent="UI" instance=ExtResource("7_pkg7o")]
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 64.0
+offset_bottom = 20.0
