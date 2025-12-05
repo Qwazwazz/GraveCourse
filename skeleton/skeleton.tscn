@@ -604,7 +604,7 @@ states/StabState/position = Vector2(633, 222)
 states/SwipeState/node = SubResource("AnimationNodeAnimation_x6jny")
 states/SwipeState/position = Vector2(253, 222)
 transitions = ["SwipeState", "SlashState", SubResource("AnimationNodeStateMachineTransition_sh88d"), "SlashState", "StabState", SubResource("AnimationNodeStateMachineTransition_d56fl"), "Start", "MoveState", SubResource("AnimationNodeStateMachineTransition_v8jiy"), "MoveState", "SwipeState", SubResource("AnimationNodeStateMachineTransition_obgqe"), "MoveState", "RollState", SubResource("AnimationNodeStateMachineTransition_pyp1f"), "RollState", "MoveState", SubResource("AnimationNodeStateMachineTransition_4ixog"), "SwipeState", "MoveState", SubResource("AnimationNodeStateMachineTransition_gku70"), "SlashState", "MoveState", SubResource("AnimationNodeStateMachineTransition_c6pi8"), "StabState", "MoveState", SubResource("AnimationNodeStateMachineTransition_qv3qp"), "HitState", "MoveState", SubResource("AnimationNodeStateMachineTransition_yvw1e")]
-graph_offset = Vector2(-100, -91)
+graph_offset = Vector2(-102, -26)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_sv33q"]
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_r6xse")

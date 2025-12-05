@@ -1,13 +1,14 @@
-class_name GroundedEnemy extends CharacterBody2D
+extends CharacterBody2D
 
 const HIT_BURST_PARTICLE = preload("res://effects/hit_burst_effect.tscn")
 
 var game: Game = load("res://game.tres")
 
 @export var walk_speed: = 30.0
-@export var attack_range: = 32.0
+@export var attack_range: = 150.0
+@export var retreat_range: = 99.0
 @export var stats: Stats
-@onready var healthbar: HealthBar = $Healthbar
+@onready var healthbar: ProgressBar = $Healthbar
 
 @onready var skeleton_targeter: SkeletonTargeter = $SkeletonTargeter
 @onready var hurtbox: Hurtbox = $Anchor/Hurtbox
@@ -34,9 +35,11 @@ func _physics_process(delta: float) -> void:
 				unit_mover.apply_flip(input_x)
 				velocity.x = input_x * walk_speed
 			move_and_slide()
-
-		"HitState":
-			unit_mover.apply_friction(delta, unit_mover.hit_friction)
+		"RetreatState":
+			var input_x: float = -skeleton_targeter.get_direction_to_skeleton()
+			if input_x != 0.0:
+				unit_mover.apply_flip(-input_x)
+				velocity.x = input_x * walk_speed
 			move_and_slide()
 		"DieState":
 			pass
@@ -53,5 +56,6 @@ func _on_hurt(other_hitbox: Hitbox) -> void:
 	hit_burst_particle.global_position = effect_marker_2d.global_position
 	stats.health -= other_hitbox.damage
 	unit_mover.apply_knockback(other_hitbox)
-	if stats.health >= 1:
-		playback.start("HitState")
+	
+	if stats.health <= 0: 
+		playback.travel("DieState")

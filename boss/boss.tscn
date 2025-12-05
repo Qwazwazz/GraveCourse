@@ -1,0 +1,357 @@
+[gd_scene load_steps=27 format=3 uid="uid://b6ukhjv8xqvm7"]
+
+[ext_resource type="Script" uid="uid://cr5e7itgomaqc" path="res://boss.gd" id="1_hcu6l"]
+[ext_resource type="Script" uid="uid://8ybfhjc8hiwx" path="res://stats.gd" id="2_glpsb"]
+[ext_resource type="Texture2D" uid="uid://cs63a5b1o3loi" path="res://boss/boss.png" id="2_ti23b"]
+[ext_resource type="Script" uid="uid://ba6n60ecfnao3" path="res://unit_mover.gd" id="3_205ta"]
+[ext_resource type="Script" uid="uid://rwphv8v5rxdk" path="res://damage_boxes/hitbox.gd" id="3_glpsb"]
+[ext_resource type="Script" uid="uid://dhnl7x8x67py" path="res://skeleton_targeter.gd" id="4_3bina"]
+[ext_resource type="Script" uid="uid://dgw8c2gffsb6t" path="res://damage_boxes/hurtbox.gd" id="4_205ta"]
+[ext_resource type="PackedScene" uid="uid://r2pk5nl6ec2m" path="res://ui/healthbar.tscn" id="5_3bina"]
+
+[sub_resource type="Resource" id="Resource_205ta"]
+script = ExtResource("2_glpsb")
+health = 20.0
+max_health = 20.0
+metadata/_custom_type_script = "uid://8ybfhjc8hiwx"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_naudl"]
+size = Vector2(32, 88)
+
+[sub_resource type="Animation" id="Animation_ti23b"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.59999996, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/Hurtbox/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-21, -3, -17, -9, -17, -67, -12, -73, -3, -83, 5, -83, 22, -73, 35, -62, 26, -13, 21, 0, -21, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/Hitbox/CollisionPolygon2D:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array()]
+}
+
+[sub_resource type="Animation" id="Animation_glpsb"]
+resource_name = "attack"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(3.7252903e-08, 0.10000004, 0.20000005, 0.30000004, 0.40000004, 0.50000006, 0.6, 0.70000005, 0.8000001, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 21]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/Hurtbox/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.3000001, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-21, -3, -17, -9, -17, -67, -12, -73, -3, -83, 5, -83, 22, -73, 35, -62, 26, -13, 21, 0, -21, 0), PackedVector2Array(-11, -11, 13, -24, 10, -35, 50, -52, 77, -44, 78, -34, 70, -23, 56, -16, 49, 0, 3, 0), PackedVector2Array(-10, -9, -3, -39, 7, -46, 33, -60, 51, -62, 57, -53, 53, -38, 44, -22, 48, 0, -5, 0), PackedVector2Array(-16, -19, -12, -45, -12, -73, -4, -83, 4, -83, 36, -62, 35, -35, 26, -13, 20, 0, -22, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/Hitbox/CollisionPolygon2D:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 1.3000001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(), PackedVector2Array(146, -6, 149, -19, 132, -76, 58, -125, -34, -130, -48, -127, 1, -122, 49, -101, 73, -81, 89, -52, 94, -15, 95, -1), PackedVector2Array(146, -3, 150, -12, 131, -56, 115, -80, 96, -100, 59, -112, 58, -110, 78, -93, 99, -57, 95, -15, 95, -1, 104, -1), PackedVector2Array(150, -1, 150, -15, 95, -15, 95, -1, 104, -1), PackedVector2Array()]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Anchor/Hitbox")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"clear_already_hit_targets"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_205ta"]
+resource_name = "die"
+length = 1.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/Hurtbox/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-16, -19, -12, -45, -12, -73, -4, -83, 4, -83, 36, -62, 35, -35, 26, -13, 20, 0, -22, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/Hitbox/CollisionPolygon2D:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array()]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"die"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Anchor/Sprite2D:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3bina"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/Hurtbox/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-21, -3, -17, -9, -17, -67, -12, -73, -3, -83, 5, -83, 22, -73, 35, -62, 26, -13, 21, 0, -21, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/Hitbox/CollisionPolygon2D:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array()]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Anchor/Sprite2D:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_naudl"]
+_data = {
+&"RESET": SubResource("Animation_3bina"),
+&"attack": SubResource("Animation_glpsb"),
+&"die": SubResource("Animation_205ta"),
+&"walk": SubResource("Animation_ti23b")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ti23b"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_glpsb"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_205ta"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3bina"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3bina"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yerig"]
+advance_mode = 2
+advance_expression = "skeleton_targeter.get_distance_to_skeleton() < attack_range and skeleton_targeter.get_distance_to_skeleton() >
+retreat_range"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_glpsb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_205ta"]
+advance_mode = 2
+advance_expression = "skeleton_targeter.get_distance_to_skeleton() <=
+retreat_range"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bfjv4"]
+advance_mode = 2
+advance_expression = "skeleton_targeter.get_distance_to_skeleton() >
+retreat_range"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6w25r"]
+states/AttackState/node = SubResource("AnimationNodeAnimation_ti23b")
+states/AttackState/position = Vector2(531, 193)
+states/ChaseState/node = SubResource("AnimationNodeAnimation_glpsb")
+states/ChaseState/position = Vector2(531, 100)
+states/DieState/node = SubResource("AnimationNodeAnimation_205ta")
+states/DieState/position = Vector2(696, 107)
+states/RetreatState/node = SubResource("AnimationNodeAnimation_3bina")
+states/RetreatState/position = Vector2(531, 5)
+transitions = ["AttackState", "ChaseState", SubResource("AnimationNodeStateMachineTransition_3bina"), "ChaseState", "AttackState", SubResource("AnimationNodeStateMachineTransition_yerig"), "Start", "ChaseState", SubResource("AnimationNodeStateMachineTransition_glpsb"), "ChaseState", "RetreatState", SubResource("AnimationNodeStateMachineTransition_205ta"), "RetreatState", "ChaseState", SubResource("AnimationNodeStateMachineTransition_bfjv4")]
+graph_offset = Vector2(-72, -33)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yerig"]
+graph_offset = Vector2(-270, 32)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_6w25r")
+nodes/StateMachine/position = Vector2(40, 80)
+node_connections = [&"output", 0, &"StateMachine"]
+
+[node name="Boss" type="CharacterBody2D" groups=["bosses"]]
+collision_layer = 4
+script = ExtResource("1_hcu6l")
+stats = SubResource("Resource_205ta")
+
+[node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("unit", "flip_node")]
+script = ExtResource("3_205ta")
+unit = NodePath("..")
+flip_node = NodePath("../Anchor")
+metadata/_custom_type_script = "uid://ba6n60ecfnao3"
+
+[node name="SkeletonTargeter" type="Node2D" parent="."]
+script = ExtResource("4_3bina")
+metadata/_custom_type_script = "uid://dhnl7x8x67py"
+
+[node name="Anchor" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Anchor"]
+texture = ExtResource("2_ti23b")
+offset = Vector2(36, -83)
+hframes = 26
+
+[node name="Hurtbox" type="Area2D" parent="Anchor"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_205ta")
+metadata/_custom_type_script = "uid://dgw8c2gffsb6t"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Anchor/Hurtbox"]
+polygon = PackedVector2Array(-21, -3, -17, -9, -17, -67, -12, -73, -3, -83, 5, -83, 22, -73, 35, -62, 26, -13, 21, 0, -21, 0)
+
+[node name="Hitbox" type="Area2D" parent="Anchor"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_glpsb")
+damage = 5.0
+knockback_amount = 300.0
+metadata/_custom_type_script = "uid://rwphv8v5rxdk"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Anchor/Hitbox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -44)
+shape = SubResource("RectangleShape2D_naudl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_naudl")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+callback_mode_discrete = 1
+tree_root = SubResource("AnimationNodeBlendTree_yerig")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="EffectMarker2D" type="Marker2D" parent="."]
+position = Vector2(0, -48)
+
+[node name="Healthbar" parent="." instance=ExtResource("5_3bina")]
+offset_top = -92.0
+offset_bottom = -88.0

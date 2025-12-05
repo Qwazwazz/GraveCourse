@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://b1hdrqiu7ywjk"]
+[gd_scene load_steps=30 format=3 uid="uid://b1hdrqiu7ywjk"]
 
 [ext_resource type="Script" uid="uid://crbrq0bqex4a5" path="res://knight.gd" id="1_0whgt"]
 [ext_resource type="Texture2D" uid="uid://3lqibyco84nr" path="res://knight/knight.png" id="2_6gdd4"]
 [ext_resource type="Script" uid="uid://ba6n60ecfnao3" path="res://unit_mover.gd" id="2_ew415"]
 [ext_resource type="Script" uid="uid://8ybfhjc8hiwx" path="res://stats.gd" id="2_okdvf"]
 [ext_resource type="Script" uid="uid://dgw8c2gffsb6t" path="res://damage_boxes/hurtbox.gd" id="3_ew415"]
+[ext_resource type="Script" uid="uid://dhnl7x8x67py" path="res://skeleton_targeter.gd" id="4_f5jhb"]
 [ext_resource type="Script" uid="uid://rwphv8v5rxdk" path="res://damage_boxes/hitbox.gd" id="4_okdvf"]
 [ext_resource type="PackedScene" uid="uid://r2pk5nl6ec2m" path="res://ui/healthbar.tscn" id="7_okdvf"]
 
@@ -300,12 +301,13 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_whyep"]
 advance_mode = 2
-advance_expression = "get_distance_to_skeleton() < attack_range"
+advance_expression = "skeleton_targeter.get_distance_to_skeleton() < attack_range and
+stats.health >= 1"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8vp70"]
 switch_mode = 2
 advance_mode = 2
-advance_expression = "stats.health >= 0 and 
+advance_expression = "stats.health >= 1 and 
 velocity == Vector2(0, 0)"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0whgt"]
@@ -317,6 +319,14 @@ velocity == Vector2(0, 0)"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6gdd4"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mwio0"]
+advance_mode = 2
+advance_expression = "stats.health <= 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qiklf"]
+advance_mode = 2
+advance_expression = "stats.health <= 0"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mwio0"]
 states/AttackState/node = SubResource("AnimationNodeAnimation_0whgt")
 states/AttackState/position = Vector2(350, 181)
@@ -325,9 +335,9 @@ states/ChaseState/position = Vector2(350, 100)
 states/DieState/node = SubResource("AnimationNodeAnimation_6gdd4")
 states/DieState/position = Vector2(753, 100)
 states/HitState/node = SubResource("AnimationNodeAnimation_ew415")
-states/HitState/position = Vector2(603, 100)
-transitions = ["AttackState", "ChaseState", SubResource("AnimationNodeStateMachineTransition_f5jhb"), "ChaseState", "AttackState", SubResource("AnimationNodeStateMachineTransition_whyep"), "HitState", "ChaseState", SubResource("AnimationNodeStateMachineTransition_8vp70"), "HitState", "DieState", SubResource("AnimationNodeStateMachineTransition_0whgt"), "Start", "ChaseState", SubResource("AnimationNodeStateMachineTransition_6gdd4")]
-graph_offset = Vector2(-41, -32)
+states/HitState/position = Vector2(553, 53)
+transitions = ["AttackState", "ChaseState", SubResource("AnimationNodeStateMachineTransition_f5jhb"), "ChaseState", "AttackState", SubResource("AnimationNodeStateMachineTransition_whyep"), "HitState", "ChaseState", SubResource("AnimationNodeStateMachineTransition_8vp70"), "HitState", "DieState", SubResource("AnimationNodeStateMachineTransition_0whgt"), "Start", "ChaseState", SubResource("AnimationNodeStateMachineTransition_6gdd4"), "ChaseState", "DieState", SubResource("AnimationNodeStateMachineTransition_mwio0"), "AttackState", "DieState", SubResource("AnimationNodeStateMachineTransition_qiklf")]
+graph_offset = Vector2(-62, 19)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_qiklf"]
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_mwio0")
@@ -345,6 +355,10 @@ unit = NodePath("..")
 flip_node = NodePath("../Anchor")
 hit_friction = 200.0
 metadata/_custom_type_script = "uid://ba6n60ecfnao3"
+
+[node name="SkeletonTargeter" type="Node2D" parent="."]
+script = ExtResource("4_f5jhb")
+metadata/_custom_type_script = "uid://dhnl7x8x67py"
 
 [node name="Anchor" type="Node2D" parent="."]
 

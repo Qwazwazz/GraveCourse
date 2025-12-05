@@ -1,4 +1,4 @@
-extends ProgressBar
+class_name HealthBar extends ProgressBar
 
 var stats: Stats :
 	set(new_stats):
