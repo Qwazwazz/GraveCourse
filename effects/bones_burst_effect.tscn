@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjvc4g1k6jmh1"]
+
+[ext_resource type="Texture2D" uid="uid://hhd4dm5wgrpg" path="res://effects/skeleton_bones.png" id="1_xfs0q"]
+[ext_resource type="Script" uid="uid://d3nfugh7idhv0" path="res://gpu_burst_particles_2d.gd" id="2_wii8o"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xfs0q"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_wii8o"]
+offsets = PackedFloat32Array(0.67391306, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_be8wr"]
+gradient = SubResource("Gradient_wii8o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_da75h"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(8, 8, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_min = -200.00002
+angular_velocity_max = 199.99998
+gravity = Vector3(0, 196, 0)
+color_ramp = SubResource("GradientTexture1D_be8wr")
+anim_offset_max = 1.0
+
+[node name="BonesBurstParticle" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_xfs0q")
+texture = ExtResource("1_xfs0q")
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_da75h")
+script = ExtResource("2_wii8o")
+metadata/_custom_type_script = "uid://d3nfugh7idhv0"

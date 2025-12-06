@@ -15,6 +15,11 @@ run/main_scene="res://world.tscn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ResourceStash="*res://resource_stash.gd"
+Music="*res://audio/music.tscn"
+
 [display]
 
 window/size/viewport_width=320

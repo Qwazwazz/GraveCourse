@@ -1,28 +1,29 @@
-[gd_scene load_steps=27 format=3 uid="uid://b6ukhjv8xqvm7"]
+[gd_scene load_steps=31 format=3 uid="uid://b6ukhjv8xqvm7"]
 
 [ext_resource type="Script" uid="uid://cr5e7itgomaqc" path="res://boss.gd" id="1_hcu6l"]
 [ext_resource type="Script" uid="uid://8ybfhjc8hiwx" path="res://stats.gd" id="2_glpsb"]
 [ext_resource type="Texture2D" uid="uid://cs63a5b1o3loi" path="res://boss/boss.png" id="2_ti23b"]
+[ext_resource type="Script" uid="uid://csn1isiwalcmf" path="res://screenshaker.gd" id="3_3bina"]
 [ext_resource type="Script" uid="uid://ba6n60ecfnao3" path="res://unit_mover.gd" id="3_205ta"]
 [ext_resource type="Script" uid="uid://rwphv8v5rxdk" path="res://damage_boxes/hitbox.gd" id="3_glpsb"]
 [ext_resource type="Script" uid="uid://dhnl7x8x67py" path="res://skeleton_targeter.gd" id="4_3bina"]
 [ext_resource type="Script" uid="uid://dgw8c2gffsb6t" path="res://damage_boxes/hurtbox.gd" id="4_205ta"]
 [ext_resource type="PackedScene" uid="uid://r2pk5nl6ec2m" path="res://ui/healthbar.tscn" id="5_3bina"]
+[ext_resource type="AudioStream" uid="uid://dhiaht5v1pm1f" path="res://audio/miss.wav" id="9_6w25r"]
+[ext_resource type="AudioStream" uid="uid://lxgn5h4swm2n" path="res://audio/big_hit.wav" id="10_yerig"]
+[ext_resource type="AudioStream" uid="uid://b4qi76f6pvf0h" path="res://audio/hit.wav" id="12_yerig"]
 
 [sub_resource type="Resource" id="Resource_205ta"]
 script = ExtResource("2_glpsb")
-health = 20.0
-max_health = 20.0
+health = 40.0
+max_health = 40.0
 metadata/_custom_type_script = "uid://8ybfhjc8hiwx"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_naudl"]
 size = Vector2(32, 88)
 
-[sub_resource type="Animation" id="Animation_ti23b"]
-resource_name = "walk"
-length = 1.2
-loop_mode = 1
-step = 0.1
+[sub_resource type="Animation" id="Animation_3bina"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -30,10 +31,10 @@ tracks/0/path = NodePath("Anchor/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.59999996, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -59,10 +60,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [PackedVector2Array()]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Anchor/Sprite2D:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_glpsb"]
 resource_name = "attack"
-length = 1.5
+length = 1.8
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -71,7 +84,7 @@ tracks/0/path = NodePath("Anchor/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(3.7252903e-08, 0.10000004, 0.20000005, 0.30000004, 0.40000004, 0.50000006, 0.6, 0.70000005, 0.8000001, 1.3, 1.4),
+"times": PackedFloat32Array(3.7252903e-08, 0.10000004, 0.20000005, 0.30000004, 0.40000004, 0.50000006, 0.6, 0.70000005, 0.8000001, 1.6, 1.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 21]
@@ -83,7 +96,7 @@ tracks/1/path = NodePath("Anchor/Hurtbox/CollisionPolygon2D:polygon")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.6, 1.3000001, 1.4),
+"times": PackedFloat32Array(0, 0.6, 1.6000001, 1.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [PackedVector2Array(-21, -3, -17, -9, -17, -67, -12, -73, -3, -83, 5, -83, 22, -73, 35, -62, 26, -13, 21, 0, -21, 0), PackedVector2Array(-11, -11, 13, -24, 10, -35, 50, -52, 77, -44, 78, -34, 70, -23, 56, -16, 49, 0, 3, 0), PackedVector2Array(-10, -9, -3, -39, 7, -46, 33, -60, 51, -62, 57, -53, 53, -38, 44, -22, 48, 0, -5, 0), PackedVector2Array(-16, -19, -12, -45, -12, -73, -4, -83, 4, -83, 36, -62, 35, -35, 26, -13, 20, 0, -22, 0)]
@@ -95,7 +108,7 @@ tracks/2/path = NodePath("Anchor/Hitbox/CollisionPolygon2D:polygon")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 1.3000001),
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 1.6000001),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [PackedVector2Array(), PackedVector2Array(146, -6, 149, -19, 132, -76, 58, -125, -34, -130, -48, -127, 1, -122, 49, -101, 73, -81, 89, -52, 94, -15, 95, -1), PackedVector2Array(146, -3, 150, -12, 131, -56, 115, -80, 96, -100, 59, -112, 58, -110, 78, -93, 99, -57, 95, -15, 95, -1, 104, -1), PackedVector2Array(150, -1, 150, -15, 95, -15, 95, -1, 104, -1), PackedVector2Array()]
@@ -114,6 +127,39 @@ tracks/3/keys = {
 "method": &"clear_already_hit_targets"
 }]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Screenshaker")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [10.0, 0.3],
+"method": &"apply_screenshake"
+}]
+}
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_6w25r")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_yerig")
+}],
+"times": PackedFloat32Array(0, 0.6)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_205ta"]
 resource_name = "die"
@@ -182,8 +228,11 @@ tracks/4/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_3bina"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_ti23b"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -191,10 +240,10 @@ tracks/0/path = NodePath("Anchor/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.59999996, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [0, 1, 2, 3, 4, 5]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -219,18 +268,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array()]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Anchor/Sprite2D:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_naudl"]
@@ -288,15 +325,18 @@ transitions = ["AttackState", "ChaseState", SubResource("AnimationNodeStateMachi
 graph_offset = Vector2(-72, -33)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yerig"]
-graph_offset = Vector2(-270, 32)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_6w25r")
 nodes/StateMachine/position = Vector2(40, 80)
 node_connections = [&"output", 0, &"StateMachine"]
 
 [node name="Boss" type="CharacterBody2D" groups=["bosses"]]
-collision_layer = 4
+collision_layer = 0
 script = ExtResource("1_hcu6l")
 stats = SubResource("Resource_205ta")
+
+[node name="Screenshaker" type="Node" parent="."]
+script = ExtResource("3_3bina")
+metadata/_custom_type_script = "uid://csn1isiwalcmf"
 
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("unit", "flip_node")]
 script = ExtResource("3_205ta")
@@ -355,3 +395,12 @@ position = Vector2(0, -48)
 [node name="Healthbar" parent="." instance=ExtResource("5_3bina")]
 offset_top = -92.0
 offset_bottom = -88.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = 10.0
+pitch_scale = 0.6
+bus = &"Sounds"
+
+[node name="HitSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_yerig")
+bus = &"Sounds"

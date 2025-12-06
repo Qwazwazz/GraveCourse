@@ -6,6 +6,8 @@ var game: Game = load("res://game.tres")
 
 
 func _ready() -> void:
-	game.kills_changed.connect(func():
-		kills_value.text = str(game.kills)
-	)
+	update_kills_value()
+	game.kills_changed.connect(update_kills_value)
+
+func update_kills_value() -> void:
+	kills_value.text = str(game.kills)

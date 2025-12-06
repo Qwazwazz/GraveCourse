@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dxaq80evuf3gd"]
+[gd_scene load_steps=45 format=3 uid="uid://dxaq80evuf3gd"]
 
 [ext_resource type="Texture2D" uid="uid://b48m1blbqoctp" path="res://skeleton/skeleton.png" id="1_crlql"]
 [ext_resource type="Script" uid="uid://buy7f6mvgioh6" path="res://skeleton.gd" id="1_plk42"]
@@ -6,11 +6,15 @@
 [ext_resource type="Script" uid="uid://8ybfhjc8hiwx" path="res://stats.gd" id="2_hd5up"]
 [ext_resource type="Script" uid="uid://dgw8c2gffsb6t" path="res://damage_boxes/hurtbox.gd" id="3_xrf56"]
 [ext_resource type="Script" uid="uid://rwphv8v5rxdk" path="res://damage_boxes/hitbox.gd" id="4_uqgdn"]
+[ext_resource type="Script" uid="uid://bhru6gei8vjc4" path="res://skeleton/character_camera.gd" id="5_73gel"]
+[ext_resource type="AudioStream" uid="uid://ctt3gfrnwwfqw" path="res://audio/medium_hit.wav" id="8_a5ci1"]
+[ext_resource type="AudioStream" uid="uid://c2nqf35dnurnq" path="res://audio/footstep.wav" id="8_wbq12"]
+[ext_resource type="AudioStream" uid="uid://dhiaht5v1pm1f" path="res://audio/miss.wav" id="9_a5ci1"]
 
 [sub_resource type="Resource" id="Resource_73gel"]
 script = ExtResource("2_hd5up")
-health = 25.0
-max_health = 25.0
+health = 10.0
+max_health = 10.0
 metadata/_custom_type_script = "uid://8ybfhjc8hiwx"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plk42"]
@@ -68,6 +72,21 @@ tracks/3/keys = {
 "update": 1,
 "values": [PackedVector2Array()]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_a5ci1")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="Animation_crlql"]
 resource_name = "Idle"
@@ -214,6 +233,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [PackedVector2Array()]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.052735604,
+"start_offset": 0.0,
+"stream": ExtResource("8_wbq12")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_r6xse"]
 resource_name = "Run"
@@ -244,6 +278,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [PackedVector2Array(-13, -3, -8, -7, -5, -10, -5, -18, -7, -20, -9, -26, -4, -28, 0, -28, 0, -31, 4, -31, 4, -27, 6, -17, 8, -14, 3, -6, -11, -1, -13, -1), PackedVector2Array(-16, -9, -15, -10, -8, -10, -5, -11, -5, -17, -7, -19, -9, -25, -3, -27, 0, -26, 0, -30, 4, -30, 4, -26, 3, -17, 3, -14, 6, -9, 9, -2, 9, 0, 7, 0, 6, -1, 5, -4, -15, -7, -16, -8), PackedVector2Array(-14, -8, -13, -10, -5, -10, -5, -14, -5, -17, -7, -18, -9, -24, -4, -26, 0, -26, 0, -30, 4, -30, 4, -25, 3, -17, 3, -12.4, 3, -3, 4, -3, 4, 0, 1, 0, -4, -8, -12, -7, -13, -7), PackedVector2Array(-9, -11, -7, -12, -4, -12, -4, -14, -5, -19, -7, -20, -9, -26, -4, -28, 0, -26, 0, -31, 4, -31, 4, -27, 3, -19, 3, -13, 2, -8, -5, -1, -7, -1, -8, -2, -8, -3, 0, -10, -8, -8, -9, -9), PackedVector2Array(-9, -10, -7, -11, -3, -11, -5, -15, -5, -18, -7, -19, -9, -25, -4, -27, 0, -26, 0, -30, 4, -30, 4, -27, 4, -23, 3, -13, 2, -7, 5, -1, 5, 0, 2, 0, 0, -4, 0, -7, -3, -8, -9, -8), PackedVector2Array(-4, -11, -5, -14, -5, -17, -7, -18, -9, -24, -4, -26, 0, -26, 0, -30, 4, -30, 4, -26, 4, -22, 3, -17, 5, -11, 3, -8, 1, -5, -1, 0, -4, 0, -4, -3, -3, -8)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_wbq12")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_wbq12")
+}],
+"times": PackedFloat32Array(0.1, 0.4)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_rwpf0"]
 resource_name = "Slash"
@@ -335,6 +388,21 @@ tracks/6/keys = {
 "update": 0,
 "values": [80.0]
 }
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_a5ci1")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/7/use_blend = true
 
 [sub_resource type="Animation" id="Animation_ew5mc"]
 resource_name = "Stab"
@@ -414,6 +482,21 @@ tracks/5/keys = {
 "update": 0,
 "values": [150.0]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_a5ci1")
+}],
+"times": PackedFloat32Array(0.2)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="Animation" id="Animation_ymvsc"]
 resource_name = "Swipe"
@@ -505,6 +588,21 @@ tracks/6/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_a5ci1")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/7/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r6xse"]
 _data = {
@@ -604,9 +702,10 @@ states/StabState/position = Vector2(633, 222)
 states/SwipeState/node = SubResource("AnimationNodeAnimation_x6jny")
 states/SwipeState/position = Vector2(253, 222)
 transitions = ["SwipeState", "SlashState", SubResource("AnimationNodeStateMachineTransition_sh88d"), "SlashState", "StabState", SubResource("AnimationNodeStateMachineTransition_d56fl"), "Start", "MoveState", SubResource("AnimationNodeStateMachineTransition_v8jiy"), "MoveState", "SwipeState", SubResource("AnimationNodeStateMachineTransition_obgqe"), "MoveState", "RollState", SubResource("AnimationNodeStateMachineTransition_pyp1f"), "RollState", "MoveState", SubResource("AnimationNodeStateMachineTransition_4ixog"), "SwipeState", "MoveState", SubResource("AnimationNodeStateMachineTransition_gku70"), "SlashState", "MoveState", SubResource("AnimationNodeStateMachineTransition_c6pi8"), "StabState", "MoveState", SubResource("AnimationNodeStateMachineTransition_qv3qp"), "HitState", "MoveState", SubResource("AnimationNodeStateMachineTransition_yvw1e")]
-graph_offset = Vector2(-102, -26)
+graph_offset = Vector2(-111, -100)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_sv33q"]
+graph_offset = Vector2(-397, -34)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_r6xse")
 nodes/StateMachine/position = Vector2(0, 140)
 node_connections = [&"output", 0, &"StateMachine"]
@@ -634,6 +733,7 @@ hframes = 33
 position = Vector2(32, -40)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
+script = ExtResource("5_73gel")
 
 [node name="Hurtbox" type="Area2D" parent="Anchor"]
 collision_layer = 8
@@ -668,3 +768,6 @@ callback_mode_discrete = 1
 tree_root = SubResource("AnimationNodeBlendTree_sv33q")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Sounds"

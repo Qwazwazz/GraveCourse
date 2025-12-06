@@ -8,8 +8,10 @@ var game: Game = load("res://game.tres")
 @export var attack_range: = 150.0
 @export var retreat_range: = 99.0
 @export var stats: Stats
+
 @onready var healthbar: ProgressBar = $Healthbar
 
+@onready var hit_sound_effect: AudioStreamPlayer = $HitSoundEffect
 @onready var skeleton_targeter: SkeletonTargeter = $SkeletonTargeter
 @onready var hurtbox: Hurtbox = $Anchor/Hurtbox
 @onready var hitbox: Hitbox = $Anchor/Hitbox
@@ -47,15 +49,17 @@ func _physics_process(delta: float) -> void:
 			pass
 
 func die() -> void:
-	game.kills += 1
 	queue_free()
 
 func _on_hurt(other_hitbox: Hitbox) -> void:
+	hit_sound_effect.play()
 	var hit_burst_particle = HIT_BURST_PARTICLE.instantiate()
 	get_tree().current_scene.add_child(hit_burst_particle)
+	var previous_health = stats.health
 	hit_burst_particle.global_position = effect_marker_2d.global_position
 	stats.health -= other_hitbox.damage
 	unit_mover.apply_knockback(other_hitbox)
 	
-	if stats.health <= 0: 
+	if stats.health <= 0 and previous_health > 0: 
+		game.kills += 1
 		playback.travel("DieState")

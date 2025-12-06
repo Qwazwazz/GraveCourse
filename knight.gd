@@ -44,14 +44,16 @@ func _physics_process(delta: float) -> void:
 			pass
 
 func die() -> void:
-	game.kills += 1
 	queue_free()
 
 func _on_hurt(other_hitbox: Hitbox) -> void:
 	var hit_burst_particle = HIT_BURST_PARTICLE.instantiate()
 	get_tree().current_scene.add_child(hit_burst_particle)
+	var previous_health = stats.health
 	hit_burst_particle.global_position = effect_marker_2d.global_position
 	stats.health -= other_hitbox.damage
 	unit_mover.apply_knockback(other_hitbox)
-	if stats.health >= 1:
+	if previous_health > 0:
 		playback.start("HitState")
+	if stats.health <= 1 and previous_health > 0:
+		game.kills += 1

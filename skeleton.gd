@@ -1,5 +1,7 @@
 class_name Skeleton extends CharacterBody2D
 
+const BONES_BURST_EFFECT = preload("res://effects/bones_burst_effect.tscn")
+
 @export var run_speed: = 100.0
 @export var roll_speed: = 175.0
 @export var stats: Stats
@@ -16,7 +18,7 @@ var input_x: = 0.0
 var last_input_x: = 1.0
 
 func _ready() -> void:
-	stats.no_health.connect(queue_free)
+	stats.no_health.connect(die)
 	hurtbox.hurt.connect(_on_hurt.call_deferred)
 
 func _physics_process(delta: float) -> void:
@@ -62,5 +64,11 @@ func _on_hurt(other_hitbox: Hitbox) -> void:
 	unit_mover.apply_knockback(other_hitbox)
 
 func die() -> void:
+	var effect = BONES_BURST_EFFECT.instantiate()
+	get_tree().current_scene.add_child(effect)
+	effect.global_position = global_position + Vector2(0, -8.0)
+	
 	hide()
 	set_deferred("process_mode", Node.PROCESS_MODE_DISABLED)
+	await get_tree().create_timer(1.0).timeout
+	get_tree().change_scene_to_file("res://game_over/game_over.tscn")
